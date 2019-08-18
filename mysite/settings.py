@@ -21,10 +21,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'mv24_xyu5*=nv+l$*sqn_ilnx3q93*#o-o^3&3an-r*-4%yfxi'
+#SECRET_KEY = 'mv24_xyu5*=nv+l$*sqn_ilnx3q93*#o-o^3&3an-r*-4%yfxi'
+
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY','mv24_xyu5*=nv+l$*sqn_ilnx3q93*#o-o^3&3an-r*-4%yfxi')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
@@ -59,6 +62,8 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #heroku
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
